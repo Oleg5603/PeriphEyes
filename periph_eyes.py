@@ -713,8 +713,10 @@ class App:
 
         br = tk.Frame(sc, bg=UI_CARD)
         br.pack(pady=(14, 0))
-        self._btn_start = self._btn(br, "👁  Запустить сейчас",
+        self._btn_start = self._btn(br, "  Запустить сейчас",
                                     self._start_now, bg=UI_ACCENT, fg=UI_BG)
+        self._eye_icon = self._make_eye_icon()
+        self._btn_start.configure(image=self._eye_icon, compound="left")
         self._btn_start.pack(side="left", padx=4)
 
         self._btn_stop = self._btn(br, "■  Стоп", self._stop_session,
@@ -1036,6 +1038,17 @@ class App:
         self.root.after(11000, self._next_tip)
 
     # ── Helpers ───────────────────────────────────────────────────────────────
+
+    def _make_eye_icon(self, size: int = 18) -> PILImageTk.PhotoImage:
+        img = PILImage.new("RGBA", (size, size), (0, 0, 0, 0))
+        d = PILDraw.Draw(img)
+        m = size // 2
+        # outer eye shape
+        d.ellipse([1, m - size // 5, size - 2, m + size // 5], outline=UI_ACCENT, width=2)
+        # pupil
+        r = size // 6
+        d.ellipse([m - r, m - r, m + r, m + r], fill=UI_ACCENT)
+        return PILImageTk.PhotoImage(image=img)
 
     def _btn(self, parent, text, cmd, bg=UI_CARD, fg=UI_FG) -> tk.Button:
         return tk.Button(parent, text=text, command=cmd, bg=bg, fg=fg,
