@@ -713,7 +713,7 @@ class App:
 
         br = tk.Frame(sc, bg=UI_CARD)
         br.pack(pady=(14, 0))
-        self._btn_start = self._btn(br, "▶  Запустить сейчас",
+        self._btn_start = self._btn(br, "👁  Запустить сейчас",
                                     self._start_now, bg=UI_ACCENT, fg=UI_BG)
         self._btn_start.pack(side="left", padx=4)
 
